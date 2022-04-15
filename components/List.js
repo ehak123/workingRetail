@@ -1,9 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import { Text, View, StyleSheet, FlatList, Button, TextInput, TouchableOpacity, } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Button, TextInput, TouchableOpacity, ImageBackground} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Constants from 'expo-constants';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { ScrollView } from 'react-native-virtualized-view'
+
+
 
 //TODO: Edit-funktion
 //TODO: Publicera & skriv ur barcode-funktion
@@ -70,7 +73,6 @@ const AdvertisedData = [
   },
 ];
 
-
 export default function List() {
   
   let row = [];
@@ -98,7 +100,6 @@ export default function List() {
   const [listDataWaste, setListDataWaste] =  useState(WasteData);
 
   const [listDataAdvertised, setListDataAdvertised] =  useState(AdvertisedData);
-
   
 
   const renderItem = ({ item, index }, onClick) => {
@@ -149,11 +150,12 @@ export default function List() {
         rightOpenValue={-100}>
           <View
           style={{
-              margin: 7,
+              margin: 10,
               borderColor: 'grey',
               borderWidth: 1,
               padding: 9,
               backgroundColor: 'white',
+              opacity: 1,
               flex: 1,
               flexDirection: 'row',
               justifyContent: 'center',
@@ -219,6 +221,7 @@ export default function List() {
       return (
       <View style={styles.container}>
 
+
         <View style={styles.topButtonContainer}>
           <TouchableOpacity
             style={WasteScreen && !AdvertisedScreen ? styles.buttonActive : styles.button}
@@ -240,40 +243,54 @@ export default function List() {
             </Text>
           </TouchableOpacity>
         </View>
-
-        <FlatList
-          data={WasteScreen ? listDataWaste : listDataAdvertised}
-          renderItem={(v) =>
-            renderItem(v, () => {
-              deleteItem(v);
-            })
-          
-          }
-          keyExtractor={(item) => item.id}>
-        </FlatList>
         
+        <ScrollView>
+          {
+          WasteScreen ? 
+          <ImageBackground source={require('../assets/apple_green.png')} style={styles.image} imageStyle= {{opacity:0.5}}>      
+            <FlatList
+              data={WasteScreen ? listDataWaste : listDataAdvertised}
+              renderItem={(v) =>
+                renderItem(v, () => {
+                  deleteItem(v);
+                })
+              
+              }
+              keyExtractor={(item) => item.id}>
+            </FlatList>
+          </ImageBackground>
+          :
+          <FlatList
+            data={WasteScreen ? listDataWaste : listDataAdvertised}
+            renderItem={(v) =>
+              renderItem(v, () => {
+                deleteItem(v);
+              })
+            
+            }
+            keyExtractor={(item) => item.id}>
+          </FlatList>
+          }
+        </ScrollView>
+
         <View style={styles.bottomButtonContainer}>
             <TouchableOpacity
               style={styles.bottomButton}
               activeOpacity={0.7}
             >
                 <Text style={styles.text}> 
-                <FontAwesome5
-                  name='print'
-                  size='17'
-                  style={styles.text}
-                />
-                {'  '}
                 Publicera och skriv ut ny barcode
                 {'  '}
                 <FontAwesome5
-                  name='barcode'
+                  name='print'
                   size='17'
                   style={styles.text}
                 />
                 </Text>
             </TouchableOpacity>
         </View>
+        
+
       </View>
     );
   }
@@ -284,7 +301,6 @@ export default function List() {
       textAlign: 'center',
       justifyContent: 'center',
       paddingTop: Constants.statusBarHeight,
-      backgroundColor: '#ecf0f1',
     },
     paragraph: {
       margin: 24,
@@ -301,7 +317,7 @@ export default function List() {
       margin: 10,
       width: 120,
       height: 38,
-      backgroundColor: '#84C171',
+      backgroundColor: '#65b14e',
       alignItems: 'center',
       borderRadius: 5,
     },
@@ -309,7 +325,7 @@ export default function List() {
       margin: 10,
       width: 120,
       height: 38,
-      backgroundColor: '#65b14e',
+      backgroundColor: '#84C171',
       alignItems: 'center',
       borderWidth: 0.5,
       borderRadius: 5,
@@ -328,8 +344,8 @@ export default function List() {
     bottomButton: {
       margin: 15,
       width: 300,
-      height: 38,
-      backgroundColor: '#84C171',
+      height: 38.5,
+      backgroundColor: '#65b14e',
       alignItems: 'center',
       borderRadius: 5,
     },
@@ -337,5 +353,9 @@ export default function List() {
       flexDirection: 'row',
       textAlign: 'center',
       justifyContent: 'center',
+    },
+    image: {
+      width: '100%',
+      height: '100%',
     }
   })

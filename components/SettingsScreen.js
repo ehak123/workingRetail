@@ -12,7 +12,7 @@
           <View style={styles.mainbody}>
              <Text >
                 SettingsScreen
-                Non-Priorited Text
+                Non-Priorited
             </Text>
           </View>
       );
