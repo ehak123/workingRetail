@@ -149,7 +149,7 @@ export default function List() {
         rightOpenValue={-100}>
           <View
           style={{
-              margin: 10,
+              margin: 7,
               borderColor: 'grey',
               borderWidth: 1,
               padding: 9,
@@ -157,6 +157,7 @@ export default function List() {
               flex: 1,
               flexDirection: 'row',
               justifyContent: 'center',
+              borderRadius: 5,
           }}>
               <View
                   style={{
@@ -302,6 +303,7 @@ export default function List() {
       height: 38,
       backgroundColor: '#84C171',
       alignItems: 'center',
+      borderRadius: 5,
     },
     buttonActive: {
       margin: 10,
@@ -310,6 +312,8 @@ export default function List() {
       backgroundColor: '#65b14e',
       alignItems: 'center',
       borderWidth: 0.5,
+      borderRadius: 5,
+
     },
     text: {
       color: '#000000',
@@ -319,6 +323,7 @@ export default function List() {
     input: {
       borderWidth: 1,
       padding: 3,
+      borderRadius: 5,
     },
     bottomButton: {
       margin: 15,
@@ -326,6 +331,7 @@ export default function List() {
       height: 38,
       backgroundColor: '#84C171',
       alignItems: 'center',
+      borderRadius: 5,
     },
     bottomButtonContainer: {
       flexDirection: 'row',
